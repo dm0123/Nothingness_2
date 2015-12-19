@@ -1,0 +1,14 @@
+C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\bin\Debug\Nothingness_2.exe.config
+C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\obj\Debug\Nothingness_2.csprojResolveAssemblyReference.cache
+C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\obj\Debug\MainWindow.g.cs
+C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\obj\Debug\App.g.cs
+C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\obj\Debug\Nothingness_2_MarkupCompile.cache
+C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\obj\Debug\Nothingness_2_MarkupCompile.lref
+C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\bin\Debug\Nothingness_2.exe
+C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\bin\Debug\Nothingness_2.pdb
+C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\obj\Debug\MainWindow.baml
+C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\obj\Debug\Nothingness_2.g.resources
+C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\obj\Debug\Nothingness_2.Properties.Resources.resources
+C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\obj\Debug\Nothingness_2.csproj.GenerateResource.Cache
+C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\obj\Debug\Nothingness_2.exe
+C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\obj\Debug\Nothingness_2.pdb
