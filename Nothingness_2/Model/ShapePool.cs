@@ -14,7 +14,7 @@ namespace Nothingness_2.Model
     /// поэтому прибегаем к помощи этой штуки. Типизирована
     /// Shape'ом, чтобы не заморачиваться
     /// </summary>
-    class ShapePool
+    public class ShapePool
     {
         private ConcurrentBag<Shape> bag = new ConcurrentBag<Shape>();
         private Random rnd = new Random();

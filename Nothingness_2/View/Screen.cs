@@ -20,6 +20,7 @@ namespace Nothingness_2.View
         public List<Model.Shape> shapes = new List<Model.Shape>();
         public MainWindow win;
         private Dictionary<string, Rectangle> canvasRectangles = new Dictionary<string, Rectangle>();
+        private bool removeFlag = false;
 
         public Screen()
         {
@@ -83,6 +84,11 @@ namespace Nothingness_2.View
             }
         }
 
+        public void removeRow()
+        {
+            removeFlag = true;
+        }
+
         public void Clear()
         {
             for (int i = 0; i < HEIGHT; i++)
@@ -111,6 +117,26 @@ namespace Nothingness_2.View
             }
             //--------------------------------
 
+            if(removeFlag == true)
+            {
+                foreach(var shape in shapes)
+                {
+                    //foreach(var block in shape.blocks)
+                    for(int i = shape.blocks.Count - 1; i >= 0; i--)
+                    {
+                        if (shape.blocks[i].Y < HEIGHT)
+                        {
+                            shape.blocks[i].Y += 1;
+                        }
+                        else
+                        {
+                            shape.blocks.RemoveAt(i);
+                        }
+                    }
+                }
+                removeFlag = false;
+            }
+
             foreach(var shape in shapes)
             {
                 foreach (var block in /*Game.Instance.CurrentShape.blocks*/shape.blocks)
@@ -122,14 +148,17 @@ namespace Nothingness_2.View
                     nameBuilder.Append("_");
                     nameBuilder.Append(block.X.ToString());
                     name = nameBuilder.ToString();
-                    blocks[block.Y][block.X].in_use = true;
-                    blocks[block.Y][block.X].name = block.name;
-                    try
+                    if(block.Y < HEIGHT)
                     {
-                        canvasRectangles[name].Fill = new SolidColorBrush(Colors.Green);
-                    }
-                    catch (KeyNotFoundException)
-                    {
+                        blocks[block.Y][block.X].in_use = true;
+                        blocks[block.Y][block.X].name = block.name;
+                        try
+                        {
+                            canvasRectangles[name].Fill = new SolidColorBrush(Colors.Green);
+                        }
+                        catch (KeyNotFoundException)
+                        {
+                        }
                     }
                 }
             }

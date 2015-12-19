@@ -23,24 +23,26 @@ namespace Nothingness_2
     {
         public event EventHandler canCreateWindow;
         public event KeyEventHandler inputEvent;
+        System.Windows.Threading.DispatcherTimer dispatcherTimer;
 
         public MainWindow()
         {
-            inputEvent += Game.Instance.Input.OnMoveEvent;
             InitializeComponent();
+            inputEvent += Game.Instance.Input.OnMoveEvent;
         }
 
         private void buttonNew_Click(object sender, RoutedEventArgs e)
         {
-            var dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             Game.Instance.Win = this;
+            Game.Instance.GameOverEvent += OnGameOver;
             dispatcherTimer.Tick += new EventHandler(Game.Instance.Run);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
             dispatcherTimer.Start();
             canCreateWindow += Game.Instance.Screen.CreateWin;
             
             canCreateWindow(this, new EventArgs());
-            this.buttonNew.IsEnabled = false;
+            buttonNew.IsEnabled = false;
         }
 
         private void buttonPause_Click(object sender, RoutedEventArgs e)
@@ -81,6 +83,13 @@ namespace Nothingness_2
         {
             KeyEventArgs args = new KeyEventArgs(e.KeyboardDevice, e.InputSource, e.Timestamp, Key.None);
             inputEvent(sender, args);
+        }
+
+        public void OnGameOver(object sender, EventArgs e)
+        {
+            buttonNew.IsEnabled = true;
+            MessageBox.Show("Game over!");
+            dispatcherTimer.Stop();
         }
     }
 }

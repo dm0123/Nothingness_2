@@ -29,6 +29,7 @@ namespace Nothingness_2.Controller
             }
         }
 
+        public event EventHandler GameOverEvent;
         public State state = State.Play;
 
         private Screen screen;
@@ -38,6 +39,8 @@ namespace Nothingness_2.Controller
         private ShapePool shapePool;
         private int ticks = 0;
         private int speed = 50;
+
+        public ShapePool ShapePool { get { return shapePool; } }
 
         public Screen Screen { get { return screen; } }
         public Input Input { get { return input; } }
@@ -77,8 +80,10 @@ namespace Nothingness_2.Controller
                             currentShape.move(rnd.Next(9), 0);
                             screen.shapes.Add(currentShape);
                         }
+                        checkFill();
                         moveShape();
                         screen.DrawFrame();
+                        checkOver();
 
                         break;
 
@@ -144,7 +149,7 @@ namespace Nothingness_2.Controller
                     case Input.Move.Down:
                         // we need to speed things up
                         //currentShape.move(1, 0);
-                        speed = 10;
+                        speed = 3;
                         break;
                     case Input.Move.No:
                         speed = 50;
@@ -153,6 +158,40 @@ namespace Nothingness_2.Controller
             }
             if(currentShape.destroyed == false)
                 currentShape.move(0, 1);
+        }
+
+        private void checkFill()
+        {
+            int count = 0;
+            for(int i = 0; i < Screen.WIDTH; i++)
+            {
+                if (screen.blocks[Screen.HEIGHT - 1][i].in_use == true)
+                    count++;
+            }
+            if(count == Screen.WIDTH)
+            {
+                screen.removeRow();
+                scores.Add();
+            }
+        }
+
+        private void checkOver()
+        {
+            bool flag = false;
+            for(int i = 0; i < Screen.WIDTH; i++)
+            {
+                if(screen.blocks[0][i].in_use == true)
+                {
+                    flag = true;
+                    break;
+                }
+            }
+            if(flag)
+            {
+                state = State.Pause;
+                Reset();
+                GameOverEvent(this, new EventArgs());
+            }
         }
 
         private void Reset()
