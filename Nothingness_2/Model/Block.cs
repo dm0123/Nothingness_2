@@ -14,14 +14,21 @@ namespace Nothingness_2.Model
 
         private int x;
         private int y;
-        private bool in_use; // ?
+
+        private int initialX;
+        private int initialY;
+
+        public int Initial_X { get { return initialX; } set { initialX = value; } }
+        public int Initial_Y { get { return initialY; } set { initialY = value; } }
+
+        public bool in_use; // ?
 
         public int X
         {
             set
             {
-                if (value < 0 || value > Screen.WIDTH)
-                    throw new IndexOutOfRangeException("Invalid x");
+                //if (value < 0 || value > Screen.WIDTH)
+                //    throw new IndexOutOfRangeException("Invalid x");
                 x = value;
             }
 
@@ -35,8 +42,8 @@ namespace Nothingness_2.Model
         {
             set
             {
-                if (value < 0 || value > Screen.HEIGHT)
-                    throw new IndexOutOfRangeException("Invalid y");
+                //if (value < 0 || value > Screen.HEIGHT)
+                //    throw new IndexOutOfRangeException("Invalid y");
                 y = value;
             }
             get
@@ -68,14 +75,18 @@ namespace Nothingness_2.Model
 
         public Block(int relX, int relY)
         {
-            this.X = relX;
-            this.Y = relY;
+            X = relX;
+            Y = relY;
+            initialX = relX;
+            initialY = relY;
         }
 
         public void Reset()
         {
             X = 0;
             Y = 0;
+            initialX = 0;
+            initialY = 0;
         }
     }
 }

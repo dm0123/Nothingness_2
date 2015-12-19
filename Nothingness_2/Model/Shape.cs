@@ -77,16 +77,18 @@ namespace Nothingness_2.Model
         {
             foreach (var block in blocks)
             {
-                try
-                {
-                    block.X += to_x;
-                    block.Y += to_y;
-                }
-                catch (IndexOutOfRangeException)
-                {
-                }
+                block.X += to_x;
+                block.Y += to_y;
             }
             return true;
+        }
+
+        public void rotate()
+        {
+            foreach(var block in blocks)
+            {
+
+            }
         }
     }
 }

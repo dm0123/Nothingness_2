@@ -22,9 +22,11 @@ namespace Nothingness_2
     public partial class MainWindow : Window
     {
         public event EventHandler canCreateWindow;
+        public event KeyEventHandler inputEvent;
 
         public MainWindow()
         {
+            inputEvent += Game.Instance.Input.OnMoveEvent;
             InitializeComponent();
         }
 
@@ -33,9 +35,10 @@ namespace Nothingness_2
             var dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             Game.Instance.Win = this;
             dispatcherTimer.Tick += new EventHandler(Game.Instance.Run);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1);
             dispatcherTimer.Start();
             canCreateWindow += Game.Instance.Screen.CreateWin;
+            
             canCreateWindow(this, new EventArgs());
             this.buttonNew.IsEnabled = false;
         }
@@ -67,6 +70,17 @@ namespace Nothingness_2
         private void Window_Activated(object sender, EventArgs e)
         {
             Screen.Background = new SolidColorBrush(Colors.Black);
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            inputEvent(sender, e);
+        }
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            KeyEventArgs args = new KeyEventArgs(e.KeyboardDevice, e.InputSource, e.Timestamp, Key.None);
+            inputEvent(sender, args);
         }
     }
 }

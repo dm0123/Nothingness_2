@@ -14,7 +14,7 @@ namespace Nothingness_2.View
     public class Screen
     {
         public const int WIDTH = 10;
-        public const int HEIGHT = 30;
+        public const int HEIGHT = 20;
 
         public Block[][] blocks;
         public List<Model.Shape> shapes = new List<Model.Shape>();
@@ -91,21 +91,47 @@ namespace Nothingness_2.View
                     blocks[i][j].Reset();
                 }
             }
+            shapes.Clear();
         }
 
         public void DrawFrame()
         {
-            foreach(var block in Game.Instance.CurrentShape.blocks)
+            // clean ------------------------
+            foreach(var rect in canvasRectangles)
             {
-                StringBuilder nameBuilder = new StringBuilder();
-                string name;
-                nameBuilder.Append("block_");
-                nameBuilder.Append(block.Y.ToString());
-                nameBuilder.Append("_");
-                nameBuilder.Append(block.X.ToString());
-                name = nameBuilder.ToString();
-                canvasRectangles[name].Fill = new SolidColorBrush(Colors.Green);
+                rect.Value.Fill = new SolidColorBrush(Colors.Black);
             }
+            for(int i = 0; i < HEIGHT; i++)
+            {
+                for(int j = 0; j < WIDTH; j++)
+                {
+                    blocks[i][j].in_use = false;
+                }
+            }
+            //--------------------------------
+
+            foreach(var shape in shapes)
+            {
+                foreach (var block in /*Game.Instance.CurrentShape.blocks*/shape.blocks)
+                {
+                    StringBuilder nameBuilder = new StringBuilder();
+                    string name;
+                    nameBuilder.Append("block_");
+                    nameBuilder.Append(block.Y.ToString());
+                    nameBuilder.Append("_");
+                    nameBuilder.Append(block.X.ToString());
+                    name = nameBuilder.ToString();
+                    blocks[block.Y][block.X].in_use = true;
+                    try
+                    {
+                        canvasRectangles[name].Fill = new SolidColorBrush(Colors.Green);
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                    }
+                }
+            }
+            
         }
 
             static T CreateJaggedArray<T>(params int[] lengths)
