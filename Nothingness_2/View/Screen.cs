@@ -67,6 +67,7 @@ namespace Nothingness_2.View
 
                             blocks[i][j].X = j;
                             blocks[i][j].Y = i;
+                            blocks[i][j].name = "";
 
                             Canvas.SetLeft(rect, blocks[i][j].Screen_X);
                             Canvas.SetTop(rect, blocks[i][j].Screen_Y);
@@ -122,6 +123,7 @@ namespace Nothingness_2.View
                     nameBuilder.Append(block.X.ToString());
                     name = nameBuilder.ToString();
                     blocks[block.Y][block.X].in_use = true;
+                    blocks[block.Y][block.X].name = block.name;
                     try
                     {
                         canvasRectangles[name].Fill = new SolidColorBrush(Colors.Green);

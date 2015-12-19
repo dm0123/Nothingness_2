@@ -35,7 +35,7 @@ namespace Nothingness_2
             var dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             Game.Instance.Win = this;
             dispatcherTimer.Tick += new EventHandler(Game.Instance.Run);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
             dispatcherTimer.Start();
             canCreateWindow += Game.Instance.Screen.CreateWin;
             

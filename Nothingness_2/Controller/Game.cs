@@ -36,6 +36,8 @@ namespace Nothingness_2.Controller
         private Shape currentShape;
         private ScoreCount scores;
         private ShapePool shapePool;
+        private int ticks = 0;
+        private int speed = 50;
 
         public Screen Screen { get { return screen; } }
         public Input Input { get { return input; } }
@@ -64,53 +66,63 @@ namespace Nothingness_2.Controller
 
         public void Run(object sender, EventArgs args)
         {
-            switch (state)
+            if (ticks > speed)
             {
-                case State.Play:
-                    if (currentShape == null || currentShape.destroyed == true)
-                    {
-                        currentShape = shapePool.GetOne();
-                        currentShape.move(rnd.Next(10), 0);
-                        screen.shapes.Add(currentShape);
-                    }
-                    moveShape();
-                    screen.DrawFrame();
+                switch (state)
+                {
+                    case State.Play:
+                        if (currentShape == null || currentShape.destroyed == true)
+                        {
+                            currentShape = shapePool.GetOne();
+                            currentShape.move(rnd.Next(9), 0);
+                            screen.shapes.Add(currentShape);
+                        }
+                        moveShape();
+                        screen.DrawFrame();
 
-                    break;
+                        break;
 
-                case State.Pause:
-                    break;
+                    case State.Pause:
+                        break;
+                }
+                ticks = 0;
             }
+            else
+                ticks++;
         }
 
         private bool checkCollisions()
         {
             var flag = false;
-            foreach (var block in currentShape.blocks)
+            var yFlag = false;
+            switch (input.State)
             {
-                bool breakFlag = false;
-                switch (input.State)
+                case Input.Move.Left:
+                    if (currentShape.LeftBlock.X - 1 < 0 || screen.blocks[currentShape.LeftBlock.Y][currentShape.LeftBlock.X - 1].in_use == true)
+                        flag = true;
+                    break;
+                case Input.Move.Right:
+                    if (currentShape.RightBlock.X + 2 > Screen.WIDTH || screen.blocks[currentShape.RightBlock.Y][currentShape.RightBlock.X + 1].in_use == true)
+                        flag = true;
+                    break;
+            }
+
+            foreach(var block in currentShape.blocks)
+            {
+                try
                 {
-                    case Input.Move.Left:
-                        if (block.X - 1 < 0)
-                            breakFlag = true;
-                        break;
-                    case Input.Move.Right:
-                        if (block.X + 2 > Screen.WIDTH)
-                            breakFlag = true;
-                        break;
+                    if (block.name != screen.blocks[block.Y + 1][block.X].name && screen.blocks[block.Y + 1][block.X].in_use == true)
+                        yFlag = true;
                 }
-                if(block.Y + 2 > Screen.HEIGHT)
+                catch (IndexOutOfRangeException)
                 {
-                    breakFlag = true;
-                    currentShape.destroyed = true;
+                    yFlag = true;
                 }
-                if(breakFlag == true)
-                {
-                    flag = true;
-                    //break;
-                }
-                    
+            }
+            if(currentShape.BottomBlock.Y + 2 > Screen.HEIGHT || yFlag)
+            {
+                flag = true;
+                currentShape.destroyed = true;
             }
             if (flag == true)
                 return true;
@@ -132,8 +144,10 @@ namespace Nothingness_2.Controller
                     case Input.Move.Down:
                         // we need to speed things up
                         //currentShape.move(1, 0);
+                        speed = 10;
                         break;
                     case Input.Move.No:
+                        speed = 50;
                         break;
                 }
             }

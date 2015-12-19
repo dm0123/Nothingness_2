@@ -21,7 +21,8 @@ namespace Nothingness_2.Model
         public int Initial_X { get { return initialX; } set { initialX = value; } }
         public int Initial_Y { get { return initialY; } set { initialY = value; } }
 
-        public bool in_use; // ?
+        public bool in_use;
+        public string name = "";
 
         public int X
         {
@@ -87,6 +88,8 @@ namespace Nothingness_2.Model
             Y = 0;
             initialX = 0;
             initialY = 0;
+            in_use = false;
+            name = "";
         }
     }
 }

@@ -12,11 +12,22 @@ namespace Nothingness_2.Model
         public List<Block> blocks;
         public bool destroyed = false;
 
-        
+        private Block _leftBlock;
+        private Block _rightBlock;
+        private Block _topBlock;
+        private Block _bottomBlock;
+
+        public Block LeftBlock { get { return _leftBlock; } }
+        public Block RightBlock { get { return _rightBlock; } }
+        public Block TopBlock { get { return _topBlock; } }
+        public Block BottomBlock { get { return _bottomBlock; } }
+
+
 
         private Type _type;
         private int x;
         private int y;
+        private string name;
 
         public int Screen_X
         {
@@ -57,6 +68,78 @@ namespace Nothingness_2.Model
         public Shape(Type type)
         {
             SetState(type);
+            _leftBlock = findLeft();
+            _rightBlock = findRight();
+            _topBlock = findTop();
+            _bottomBlock = findBottom();
+            StringBuilder nameBuilder = new StringBuilder("Shape");
+            nameBuilder.Append(DateTime.Now.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds);
+            name = nameBuilder.ToString();
+            foreach(var block in blocks)
+            {
+                block.name = name;
+            }
+        }
+
+        private Block findLeft()
+        {
+            Block leftBlock = null;
+            int min = 1000;
+            foreach(var block in blocks)
+            {
+                if (block.X < min)
+                {
+                    leftBlock = block;
+                    min = leftBlock.X;
+                }
+            }
+            return leftBlock;
+        }
+
+        private Block findTop()
+        {
+            Block topBlock = null;
+            int min = 1000;
+            foreach (var block in blocks)
+            {
+                if (block.Y < min)
+                {
+                    topBlock = block;
+                    min = topBlock.Y;
+                }
+                
+            }
+            return topBlock;
+        }
+
+        private Block findBottom()
+        {
+            Block bottomBlock = null;
+            int max = -1000;
+            foreach (var block in blocks)
+            {
+                if (block.Y > max)
+                {
+                    bottomBlock = block;
+                    max = bottomBlock.Y;
+                }                    
+            }
+            return bottomBlock;
+        }
+
+        private Block findRight()
+        {
+            Block rightBlock = null;
+            int max = -1000;
+            foreach (var block in blocks)
+            {
+                if (block.X > max)
+                {
+                    rightBlock = block;
+                    max = rightBlock.X;
+                }
+            }
+            return rightBlock;
         }
 
         public void SetState(Type type)
