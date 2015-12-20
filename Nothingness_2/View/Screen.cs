@@ -125,14 +125,17 @@ namespace Nothingness_2.View
                     //foreach(var block in shape.blocks)
                     for(int i = shape.blocks.Count - 1; i >= 0; i--)
                     {
-                        if (shape.blocks[i].Y < HEIGHT)
-                        {
-                            shape.blocks[i].Y += 1;
-                        }
-                        else
-                        {
-                            shape.blocks.RemoveAt(i);
-                        }
+                        //foreach(int row in rowsToRemove)
+                        //{
+                            if (shape.blocks[i].Y < HEIGHT)
+                            {
+                                shape.blocks[i].Y += 1;
+                            }
+                            else
+                            {
+                                shape.blocks.RemoveAt(i);
+                            }
+                        //}
                     }
                 }
                 removeFlag = false;

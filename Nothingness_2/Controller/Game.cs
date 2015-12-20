@@ -154,7 +154,8 @@ namespace Nothingness_2.Controller
                         speed = 3;
                         break;
                     case Input.Move.Rotate:
-                        currentShape.rotate();
+                        if(checkRotation() == true)
+                            currentShape.rotate();
                         break;
                     case Input.Move.No:
                         speed = 50;
@@ -167,17 +168,23 @@ namespace Nothingness_2.Controller
 
         private void checkFill()
         {
-            int count = 0;
-            for(int i = 0; i < Screen.WIDTH; i++)
-            {
-                if (screen.blocks[Screen.HEIGHT - 1][i].in_use == true)
-                    count++;
-            }
-            if(count == Screen.WIDTH)
-            {
-                screen.removeRow();
-                scores.Add();
-            }
+            screen.rowsToRemove.Clear();
+            //for(int j = 0; j < Screen.HEIGHT; j++)
+            //{
+                int count = 0;
+                for (int i = 0; i < Screen.WIDTH; i++)
+                {
+                    if (screen.blocks[Screen.HEIGHT - 1][i].in_use == true)
+                        count++;
+                }
+                if (count == Screen.WIDTH)
+                {
+                    screen.removeRow();
+                    //screen.rowsToRemove.Add(j);
+                    scores.Add();
+                }
+            //}
+            //screen.removeRow();
         }
 
         private void checkOver()
@@ -212,6 +219,42 @@ namespace Nothingness_2.Controller
                 this.state = State.Pause;
             else
                 this.state = State.Play;
+        }
+
+        public bool checkRotation()
+        {
+            bool res = true;
+            switch (currentShape.type)
+            {
+                case Shape.Type.I:
+                    if(currentShape.CurrentAngle == Shape.Angle.A0 || currentShape.CurrentAngle == Shape.Angle.A180)
+                    {
+                        if (currentShape.LeftBlock.X - 4 < 0 || currentShape.RightBlock.X + 4 >= Screen.WIDTH ||
+                            screen.blocks[currentShape.LeftBlock.Y][currentShape.LeftBlock.X - 4].in_use == true || screen.blocks[currentShape.LeftBlock.Y][currentShape.RightBlock.X + 4].in_use == true)
+                            res = false;
+                    }
+                    else if(currentShape.CurrentAngle == Shape.Angle.A90 || currentShape.CurrentAngle == Shape.Angle.A270)
+                    {
+                        if (currentShape.LeftBlock.Y - 4 < 0 || currentShape.RightBlock.Y + 4 >= Screen.HEIGHT ||
+                            screen.blocks[currentShape.BottomBlock.Y - 4][currentShape.BottomBlock.X].in_use == true || screen.blocks[currentShape.TopBlock.Y + 4][currentShape.TopBlock.X].in_use == true)
+                            res = false;
+                    }
+                    break;
+                case Shape.Type.L:
+                case Shape.Type.J:
+                case Shape.Type.S:
+                case Shape.Type.T:
+                case Shape.Type.Z:
+                    if (currentShape.LeftBlock.X - 1 < 0 || currentShape.RightBlock.X + 1 >= Screen.WIDTH)
+                        res = false;
+                    else if(screen.blocks[currentShape.LeftBlock.Y][currentShape.LeftBlock.X - 1].in_use == true || 
+                            screen.blocks[currentShape.LeftBlock.Y][currentShape.RightBlock.X + 1].in_use == true)
+                            res = false;
+                    break;
+                case Shape.Type.O:
+                    break;                    
+            }
+            return res;
         }
     }
 }

@@ -91,8 +91,8 @@ namespace Nothingness_2.Model
                         case Shape.Angle.A270:
                             blocks.Add(new Block(0, 1));
                             blocks.Add(new Block(1, 1));
-                            blocks.Add(new Block(1, 2));
                             blocks.Add(new Block(0, 2));
+                            blocks.Add(new Block(1, 2));
                             break;
                     }
                     break;

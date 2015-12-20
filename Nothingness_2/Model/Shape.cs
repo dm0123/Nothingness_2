@@ -68,6 +68,8 @@ namespace Nothingness_2.Model
             }
         }
 
+        public Angle CurrentAngle { get { return _angle; } }
+
         public Shape(Type type, Angle angle)
         {
             SetState(type, angle);

@@ -26,9 +26,13 @@ namespace Nothingness_2.Model
             if (bag.TryTake(out shape))
             {
                 shape.SetState((Shape.Type)values.GetValue(rnd.Next(values.Length)), (Shape.Angle)a_values.GetValue(rnd.Next(values.Length)));
-                return shape;
             }
-            return new Shape((Shape.Type)values.GetValue(rnd.Next(values.Length)), (Shape.Angle)a_values.GetValue(rnd.Next(a_values.Length)));
+            else shape = new Shape((Shape.Type)values.GetValue(rnd.Next(values.Length)), (Shape.Angle)a_values.GetValue(rnd.Next(a_values.Length)));
+            if(shape.BottomBlock.Y < 0)
+            {
+                shape.move(0, - shape.BottomBlock.Y);
+            }
+            return shape;
         }
 
         public void Release(ref Shape one)
