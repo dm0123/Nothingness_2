@@ -21,6 +21,7 @@ namespace Nothingness_2.View
         public MainWindow win;
         private Dictionary<string, Rectangle> canvasRectangles = new Dictionary<string, Rectangle>();
         private bool removeFlag = false;
+        public List<int> rowsToRemove = new List<int>();
 
         public Screen()
         {
@@ -148,7 +149,7 @@ namespace Nothingness_2.View
                     nameBuilder.Append("_");
                     nameBuilder.Append(block.X.ToString());
                     name = nameBuilder.ToString();
-                    if(block.Y < HEIGHT)
+                    if(block.Y < HEIGHT && block.X < WIDTH)
                     {
                         blocks[block.Y][block.X].in_use = true;
                         blocks[block.Y][block.X].name = block.name;

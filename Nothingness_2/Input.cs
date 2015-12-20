@@ -9,7 +9,7 @@ namespace Nothingness_2
 {
     public class Input
     {
-        public enum Move {No, Left, Right, Down};
+        public enum Move {No, Left, Right, Down, Rotate };
 
         private Move state = Move.No;
 
@@ -41,6 +41,9 @@ namespace Nothingness_2
                     break;
                 case Key.Right:
                     state = Move.Right;
+                    break;
+                case Key.R:
+                    state = Move.Rotate;
                     break;
                 case Key.None:
                     state = Move.No;

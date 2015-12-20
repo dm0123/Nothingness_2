@@ -9,6 +9,7 @@ namespace Nothingness_2.Model
     public class Shape
     {
         public enum Type { I, J, L, O, S, T, Z };
+        public enum Angle { A0, A90, A180, A270 };
         public List<Block> blocks;
         public bool destroyed = false;
 
@@ -25,9 +26,11 @@ namespace Nothingness_2.Model
 
 
         private Type _type;
+        private Angle _angle;
         private int x;
         private int y;
         private string name;
+        public int center;
 
         public int Screen_X
         {
@@ -65,9 +68,9 @@ namespace Nothingness_2.Model
             }
         }
 
-        public Shape(Type type)
+        public Shape(Type type, Angle angle)
         {
-            SetState(type);
+            SetState(type, angle);
             _leftBlock = findLeft();
             _rightBlock = findRight();
             _topBlock = findTop();
@@ -142,10 +145,11 @@ namespace Nothingness_2.Model
             return rightBlock;
         }
 
-        public void SetState(Type type)
+        public void SetState(Type type, Angle angle)
         {
-            blocks = ShapeBuilder.getShapeByType(type);
+            blocks = ShapeBuilder.getShapeByType(type, angle);
             this.type = type;
+            _angle = angle;
         }
 
         public void ResetState()
@@ -168,10 +172,35 @@ namespace Nothingness_2.Model
 
         public void rotate()
         {
-            foreach(var block in blocks)
+            Angle a = Angle.A0;
+            int offsetX = blocks[0].X - blocks[0].Initial_X;
+            int offsetY = blocks[0].Y - blocks[0].Initial_Y;
+            switch(_angle)
             {
+                case Angle.A0:
+                    a = Angle.A90;
+                    break;
+                case Angle.A90:
+                    a = Angle.A180;
+                    break;
+                case Angle.A180:
+                    a = Angle.A270;
+                    break;
+                case Angle.A270:
+                    a = Angle.A0;
+                    break;
 
             }
+            SetState(_type, a);
+            _leftBlock = findLeft();
+            _rightBlock = findRight();
+            _topBlock = findTop();
+            _bottomBlock = findBottom();
+            foreach (var block in blocks)
+            {
+                block.name = name;
+            }
+            move(offsetX, offsetY);
         }
     }
 }

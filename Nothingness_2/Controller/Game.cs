@@ -45,6 +45,8 @@ namespace Nothingness_2.Controller
         public Screen Screen { get { return screen; } }
         public Input Input { get { return input; } }
 
+        public ScoreCount Scores { get { return scores; } }
+
         public Shape CurrentShape { get { return currentShape; } }
 
         private Game()
@@ -150,6 +152,9 @@ namespace Nothingness_2.Controller
                         // we need to speed things up
                         //currentShape.move(1, 0);
                         speed = 3;
+                        break;
+                    case Input.Move.Rotate:
+                        currentShape.rotate();
                         break;
                     case Input.Move.No:
                         speed = 50;

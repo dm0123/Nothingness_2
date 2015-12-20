@@ -36,6 +36,7 @@ namespace Nothingness_2
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             Game.Instance.Win = this;
             Game.Instance.GameOverEvent += OnGameOver;
+            Game.Instance.Scores.ScoreEvent += OnScoreEvent;
             dispatcherTimer.Tick += new EventHandler(Game.Instance.Run);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
             dispatcherTimer.Start();
@@ -90,6 +91,11 @@ namespace Nothingness_2
             buttonNew.IsEnabled = true;
             MessageBox.Show("Game over!");
             dispatcherTimer.Stop();
+        }
+
+        public void OnScoreEvent(object sender, ScoresEventArgs e)
+        {
+            Scores.Content = "Очки: " + e.Message;
         }
     }
 }
