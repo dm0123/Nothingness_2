@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using Nothingness_2.Model;
+using Nothingness_2.View;
 
 namespace Nothingness_2.Model
 {
@@ -25,13 +26,36 @@ namespace Nothingness_2.Model
             Shape shape;
             if (bag.TryTake(out shape))
             {
-                shape.SetState((Shape.Type)values.GetValue(rnd.Next(values.Length)), (Shape.Angle)a_values.GetValue(rnd.Next(values.Length)));
+                shape.SetState((Shape.Type)values.GetValue(rnd.Next(values.Length)), /*(Shape.Angle)a_values.GetValue(rnd.Next(values.Length))*/0);
             }
-            else shape = new Shape((Shape.Type)values.GetValue(rnd.Next(values.Length)), (Shape.Angle)a_values.GetValue(rnd.Next(a_values.Length)));
-            if(shape.BottomBlock.Y < 0)
+            else shape = new Shape((Shape.Type)values.GetValue(rnd.Next(values.Length)), /*(Shape.Angle)a_values.GetValue(rnd.Next(a_values.Length))*/0);
+            //if(shape.BottomBlock.Y < 0)
+            //{
+            //    shape.move(0, - shape.BottomBlock.Y);
+            //}
+            bool flag = false;
+            int offsetX = 0;
+            int offsetY = 1;
+            foreach(var block in shape.blocks)
             {
-                shape.move(0, - shape.BottomBlock.Y);
+                if (block.Y < offsetY)
+                {
+                    flag = true;
+                    offsetY = -block.Y;
+                }
+                if(block.X < 0)
+                {
+                    flag = true;
+                    offsetX = -block.X;
+                }
+                if(block.X >= Screen.WIDTH - offsetX)
+                {
+                    flag = true;
+                    offsetX = Screen.WIDTH - block.X;
+                }
             }
+            if (flag == true)
+                shape.move(offsetX, offsetY);
             return shape;
         }
 

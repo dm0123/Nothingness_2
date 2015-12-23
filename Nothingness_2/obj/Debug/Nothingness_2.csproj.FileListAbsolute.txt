@@ -12,3 +12,5 @@ C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness
 C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\obj\Debug\Nothingness_2.csproj.GenerateResource.Cache
 C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\obj\Debug\Nothingness_2.exe
 C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\obj\Debug\Nothingness_2.pdb
+C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\obj\Debug\Records.g.cs
+C:\Users\Polomin\Documents\Visual Studio 2015\Projects\Nothingness_2\Nothingness_2\obj\Debug\Records.baml

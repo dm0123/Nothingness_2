@@ -14,6 +14,7 @@ namespace Nothingness_2
         public delegate void ScoresEventHandler(object sender, ScoresEventArgs e);
 
         public event ScoresEventHandler ScoreEvent;
+        public event EventHandler ClearEvent;
 
         public ScoreCount()
         {
@@ -21,16 +22,21 @@ namespace Nothingness_2
 
         public bool Store()
         {
+            ClearEvent(this, new EventArgs());
             return true;
         }
 
         public void Add()
         {
-            currentScore += 10 * (currentScore + 3) - currentScore * 8 + rnd.Next(64);
+            currentScore += 10 * (currentScore + 3) - currentScore * 9 + rnd.Next(64);
             ScoreEvent(this, new ScoresEventArgs(currentScore.ToString()));
         }
 
-       
+        public void OnAddPersonEvent(object sender, ScoresEventArgs e)
+        {
+
+        }
+
     }
 
     public class ScoresEventArgs : EventArgs

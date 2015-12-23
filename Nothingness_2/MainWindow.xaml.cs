@@ -23,6 +23,7 @@ namespace Nothingness_2
     {
         public event EventHandler canCreateWindow;
         public event KeyEventHandler inputEvent;
+        public ScoreCount.ScoresEventHandler AddPersonEvent;
         System.Windows.Threading.DispatcherTimer dispatcherTimer;
 
         public MainWindow()
@@ -35,8 +36,14 @@ namespace Nothingness_2
         {
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             Game.Instance.Win = this;
+            Game.Instance.GameOverEvent -= OnGameOver;
+            Game.Instance.Scores.ScoreEvent -= OnScoreEvent;
             Game.Instance.GameOverEvent += OnGameOver;
             Game.Instance.Scores.ScoreEvent += OnScoreEvent;
+            Game.Instance.Scores.ClearEvent -= OnClearScores;
+            Game.Instance.Scores.ClearEvent += OnClearScores;
+            AddPersonEvent -= Game.Instance.Scores.OnAddPersonEvent;
+            AddPersonEvent += Game.Instance.Scores.OnAddPersonEvent;
             dispatcherTimer.Tick += new EventHandler(Game.Instance.Run);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
             dispatcherTimer.Start();
@@ -89,13 +96,26 @@ namespace Nothingness_2
         public void OnGameOver(object sender, EventArgs e)
         {
             buttonNew.IsEnabled = true;
-            MessageBox.Show("Game over!");
+            //MessageBox.Show("Game over!");
             dispatcherTimer.Stop();
+            Records recordsDlg = new Records();
+            recordsDlg.Owner = this;
+            recordsDlg.ShowDialog();
         }
 
         public void OnScoreEvent(object sender, ScoresEventArgs e)
         {
             Scores.Content = "Очки: " + e.Message;
+        }
+
+        public void OnClearScores(object sender, EventArgs e)
+        {
+            Scores.Content = "Очки:";
+        }
+
+        public void OnPersonStoreScore(object sender, Records.PersonEventArgs e)
+        {
+            AddPersonEvent(sender, new ScoresEventArgs(e.Message));
         }
     }
 }

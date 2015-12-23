@@ -8,7 +8,7 @@ using System.Windows.Shapes;
 
 namespace Nothingness_2.Model
 {
-    public class Block
+    public class Block : ICloneable
     {
         public const int SIZE = 25;
 
@@ -90,6 +90,11 @@ namespace Nothingness_2.Model
             initialY = 0;
             in_use = false;
             name = "";
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

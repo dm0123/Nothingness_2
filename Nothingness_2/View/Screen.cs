@@ -116,26 +116,31 @@ namespace Nothingness_2.View
                     blocks[i][j].in_use = false;
                 }
             }
+            rowsToRemove.Sort();
             //--------------------------------
 
             if(removeFlag == true)
             {
-                foreach(var shape in shapes)
+                foreach (int row in rowsToRemove)
                 {
-                    //foreach(var block in shape.blocks)
-                    for(int i = shape.blocks.Count - 1; i >= 0; i--)
+                    foreach (var shape in shapes)
                     {
-                        //foreach(int row in rowsToRemove)
-                        //{
-                            if (shape.blocks[i].Y < HEIGHT)
+                        //foreach(var block in shape.blocks)
+                        var originalblocks = shape.blocks.Select(item => (Block)item.Clone()).ToList();
+                    
+                        for (int i = shape.blocks.Count - 1; i >= 0; i--)
+                        {
+
+                            if (originalblocks[i].Y == /*HEIGHT*/row - 1)
                             {
-                                shape.blocks[i].Y += 1;
+                                shape.blocks[i].Y += /*rowsToRemove.Count*/1;
                             }
-                            else
+                            else if(originalblocks[i].Y <= row)
                             {
                                 shape.blocks.RemoveAt(i);
                             }
-                        //}
+                            //}
+                        }
                     }
                 }
                 removeFlag = false;

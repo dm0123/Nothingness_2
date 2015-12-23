@@ -38,7 +38,10 @@ namespace Nothingness_2.Controller
         private ScoreCount scores;
         private ShapePool shapePool;
         private int ticks = 0;
-        private int speed = 50;
+        private int speed = 20;
+        private int gravitySpeed = 50;
+        private int gravityTicks = 0;
+        private bool needCheckFill = false;
 
         public ShapePool ShapePool { get { return shapePool; } }
 
@@ -79,11 +82,28 @@ namespace Nothingness_2.Controller
                         if (currentShape == null || currentShape.destroyed == true)
                         {
                             currentShape = shapePool.GetOne();
-                            currentShape.move(rnd.Next(9), 0);
+                            while(currentShape.LeftBlock.X > Screen.WIDTH && currentShape.RightBlock.X < 0 && currentShape.TopBlock.Y > Screen.HEIGHT - 1 && currentShape.BottomBlock.Y < 0)
+                            {
+                                currentShape = shapePool.GetOne();
+                            }
+                            currentShape.move(/*rnd.Next(9)*/4, 0);
                             screen.shapes.Add(currentShape);
                         }
-                        checkFill();
+                        if(needCheckFill)
+                        {
+                            checkFill();
+                        }
                         moveShape();
+
+                        //if (gravityTicks > gravitySpeed)
+                        //{
+                            // gravity
+                            if (currentShape.destroyed == false)
+                                currentShape.move(0, 1);
+                        //    gravityTicks = 0;
+                        //}
+                        //else gravityTicks++;
+
                         screen.DrawFrame();
                         checkOver();
 
@@ -130,6 +150,8 @@ namespace Nothingness_2.Controller
             {
                 flag = true;
                 currentShape.destroyed = true;
+                needCheckFill = true;
+
             }
             if (flag == true)
                 return true;
@@ -158,49 +180,58 @@ namespace Nothingness_2.Controller
                             currentShape.rotate();
                         break;
                     case Input.Move.No:
-                        speed = 50;
+                        speed = 20;
                         break;
                 }
             }
-            if(currentShape.destroyed == false)
-                currentShape.move(0, 1);
         }
 
         private void checkFill()
         {
             screen.rowsToRemove.Clear();
-            //for(int j = 0; j < Screen.HEIGHT; j++)
-            //{
+            for (int j = 0; j < Screen.HEIGHT; j++)
+            {
                 int count = 0;
                 for (int i = 0; i < Screen.WIDTH; i++)
                 {
-                    if (screen.blocks[Screen.HEIGHT - 1][i].in_use == true)
+                    if (screen.blocks[/*Screen.HEIGHT - 1*/j][i].in_use == true)
                         count++;
                 }
                 if (count == Screen.WIDTH)
                 {
-                    screen.removeRow();
-                    //screen.rowsToRemove.Add(j);
+                    //screen.removeRow();
+                    screen.rowsToRemove.Add(j);
                     scores.Add();
                 }
-            //}
-            //screen.removeRow();
+            }
+            screen.removeRow();
         }
 
         private void checkOver()
         {
             bool flag = false;
-            for(int i = 0; i < Screen.WIDTH; i++)
+            //for(int i = 0; i < Screen.WIDTH; i++)
+            //{
+            //    if(screen.blocks[0][i].in_use == true)
+            //    {
+            //        flag = true;
+            //        break;
+            //    }
+            //}
+            foreach(var shape in screen.shapes)
             {
-                if(screen.blocks[0][i].in_use == true)
+                foreach(var block in shape.blocks)
                 {
-                    flag = true;
-                    break;
+                    if(block.Y - 1 < 0)
+                    {
+                        flag = true;
+                        break;
+                    }
                 }
             }
             if(flag)
             {
-                state = State.Pause;
+                //state = State.Pause;
                 Reset();
                 GameOverEvent(this, new EventArgs());
             }

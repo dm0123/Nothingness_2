@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <Canvas x:Name="Screen" HorizontalAlignment="Left" Height="500" Margin="10,10,0,0" VerticalAlignment="Top" Width="250" Grid.ColumnSpan="2"/>
         <Button x:Name="buttonNew" Content="Новая игра" HorizontalAlignment="Left" Margin="138,62,0,0" VerticalAlignment="Top" Width="75" Click="buttonNew_Click" Grid.Column="1"/>
-        <Label x:Name="Scores" Content="Очки:" HorizontalAlignment="Left" Margin="105,32,0,0" VerticalAlignment="Top" Width="75" Height="25" Grid.Column="1" RenderTransformOrigin="0.04,0.28"/>
+        <Label x:Name="Scores" Content="Очки:" HorizontalAlignment="Left" Margin="105,32,0,0" VerticalAlignment="Top" Width="108" Height="25" Grid.Column="1" RenderTransformOrigin="0.04,0.28"/>
         <Button x:Name="buttonPause" Content="Пауза" HorizontalAlignment="Left" Margin="138,87,0,0" VerticalAlignment="Top" Width="75" Click="buttonPause_Click" Grid.Column="1"/>
         <Button x:Name="buttonSave" Content="Сохранить" HorizontalAlignment="Left" Margin="138,112,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" RenderTransformOrigin="0.6,0.5" Grid.Column="1" Click="buttonSave_Click"/>
         <Button x:Name="buttonExit" Content="Выход" HorizontalAlignment="Left" Margin="138,137,0,0" VerticalAlignment="Top" Width="75" Click="buttonExit_Click" Grid.Column="1"/>
