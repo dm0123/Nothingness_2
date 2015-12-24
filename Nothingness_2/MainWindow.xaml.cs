@@ -25,10 +25,12 @@ namespace Nothingness_2
         public event KeyEventHandler inputEvent;
         public ScoreCount.ScoresEventHandler AddPersonEvent;
         System.Windows.Threading.DispatcherTimer dispatcherTimer;
+        private XMLWorker storage;
 
         public MainWindow()
         {
             InitializeComponent();
+            storage = XMLWorker.Instance;
             inputEvent += Game.Instance.Input.OnMoveEvent;
         }
 
@@ -100,7 +102,9 @@ namespace Nothingness_2
             dispatcherTimer.Stop();
             Records recordsDlg = new Records();
             recordsDlg.Owner = this;
+            recordsDlg.StorePersonalScoresEvent += OnPersonStoreScore;
             recordsDlg.ShowDialog();
+            //recordsDlg.bindEvent();
         }
 
         public void OnScoreEvent(object sender, ScoresEventArgs e)
@@ -116,6 +120,14 @@ namespace Nothingness_2
         public void OnPersonStoreScore(object sender, Records.PersonEventArgs e)
         {
             AddPersonEvent(sender, new ScoresEventArgs(e.Message));
+        }
+
+        private void buttonRecords_Click(object sender, RoutedEventArgs e)
+        {
+            Game.Instance.state = Game.State.Pause;
+            RecordsTable tableWindow = new RecordsTable();
+            tableWindow.Owner = this;
+            tableWindow.Show();
         }
     }
 }

@@ -232,6 +232,7 @@ namespace Nothingness_2.Controller
             if(flag)
             {
                 //state = State.Pause;
+                input.State = Input.Move.No;
                 Reset();
                 GameOverEvent(this, new EventArgs());
             }

@@ -13,7 +13,7 @@ namespace Nothingness_2
 
         private Move state = Move.No;
 
-        public Move State { get { return state; } }
+        public Move State { get { return state; } set { state = value; } }
 
         public Input()
         {

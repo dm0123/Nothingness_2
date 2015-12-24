@@ -22,7 +22,6 @@ namespace Nothingness_2
 
         public bool Store()
         {
-            ClearEvent(this, new EventArgs());
             return true;
         }
 
@@ -34,7 +33,8 @@ namespace Nothingness_2
 
         public void OnAddPersonEvent(object sender, ScoresEventArgs e)
         {
-
+            XMLWorker.Instance.Save(e.Message, currentScore.ToString());
+            ClearEvent(this, new EventArgs());
         }
 
     }

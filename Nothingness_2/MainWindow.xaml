@@ -16,7 +16,8 @@
         <Label x:Name="Scores" Content="Очки:" HorizontalAlignment="Left" Margin="105,32,0,0" VerticalAlignment="Top" Width="108" Height="25" Grid.Column="1" RenderTransformOrigin="0.04,0.28"/>
         <Button x:Name="buttonPause" Content="Пауза" HorizontalAlignment="Left" Margin="138,87,0,0" VerticalAlignment="Top" Width="75" Click="buttonPause_Click" Grid.Column="1"/>
         <Button x:Name="buttonSave" Content="Сохранить" HorizontalAlignment="Left" Margin="138,112,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" RenderTransformOrigin="0.6,0.5" Grid.Column="1" Click="buttonSave_Click"/>
-        <Button x:Name="buttonExit" Content="Выход" HorizontalAlignment="Left" Margin="138,137,0,0" VerticalAlignment="Top" Width="75" Click="buttonExit_Click" Grid.Column="1"/>
+        <Button x:Name="buttonExit" Content="Выход" HorizontalAlignment="Left" Margin="139,180,0,0" VerticalAlignment="Top" Width="75" Click="buttonExit_Click" Grid.Column="1"/>
+        <Button x:Name="buttonRecords" Content="Рекорды" Grid.Column="1" HorizontalAlignment="Left" Margin="138,137,0,0" VerticalAlignment="Top" Width="75" Click="buttonRecords_Click"/>
 
     </Grid>
 </Window>

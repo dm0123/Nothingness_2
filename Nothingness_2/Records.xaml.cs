@@ -36,9 +36,13 @@ namespace Nothingness_2
 
         public Records()
         {
-            StorePersonalScoresEvent += ((MainWindow)GetWindow(Parent)).OnPersonStoreScore;
             InitializeComponent();
         }
+
+        //public void bindEvent()
+        //{
+        //    StorePersonalScoresEvent += ((MainWindow)GetWindow(Parent)).OnPersonStoreScore;
+        //}
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
@@ -48,6 +52,7 @@ namespace Nothingness_2
         private void button_Click(object sender, RoutedEventArgs e)
         {
             StorePersonalScoresEvent(this, new PersonEventArgs(textBox.Text));
+            Close();
         }
     }
 }

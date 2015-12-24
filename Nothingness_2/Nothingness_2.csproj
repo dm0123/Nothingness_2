@@ -59,7 +59,11 @@
     <Compile Include="Records.xaml.cs">
       <DependentUpon>Records.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RecordsTable.xaml.cs">
+      <DependentUpon>RecordsTable.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Screen.cs" />
+    <Compile Include="XMLWorker.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -75,6 +79,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Records.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RecordsTable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
